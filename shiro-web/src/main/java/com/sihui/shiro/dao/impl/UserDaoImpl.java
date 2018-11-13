@@ -4,6 +4,7 @@ import com.sihui.shiro.dao.UserDao;
 import com.sihui.shiro.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -53,7 +54,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<String> getPermissionsByUserName(String userName) {
-        String sql = "select permission from roles_permision where role_name = ?";
+        String sql = "select permission from roles_permissions p,user_roles r where p.role_name = r.role_name and r.username = ?";
         return jdbcTemplate.query(sql, new String[]{userName}, new RowMapper<String>() {
             @Override
             public String mapRow(ResultSet resultSet, int i) throws SQLException {

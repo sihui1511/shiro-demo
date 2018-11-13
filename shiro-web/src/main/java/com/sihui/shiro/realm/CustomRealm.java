@@ -31,11 +31,11 @@ public class CustomRealm extends AuthorizingRealm {
         // 从数据库或缓存中获取角色数据
         Set<String> roles = getRolesByUserName(userName);
         Set<String> permissions = getPermissionsByUserName(userName);
-
+        System.out.println("------permissions: "+permissions);
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         authorizationInfo.setRoles(roles);
         authorizationInfo.setStringPermissions(permissions);
-        System.out.println("------");
+
         return authorizationInfo;
     }
 
